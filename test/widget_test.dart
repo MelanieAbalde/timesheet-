@@ -1,20 +1,22 @@
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:timesheet_app/main.dart';
 
 void main() {
-  testWidgets('shows timesheet workflow after login', (tester) async {
+  testWidgets('login flow test', (tester) async {
     await tester.pumpWidget(const TimesheetApp());
 
+    // Verify login screen
     expect(find.text('IPSOS · TIMESHEET'), findsOneWidget);
+    expect(find.text('Name'), findsOneWidget);
+    expect(find.text('Email Address'), findsOneWidget);
 
-    await tester.tap(find.text('Sign in'));
+    // Tap Sign In (pre-filled by test user logic)
+    await tester.tap(find.text('Sign In'));
     await tester.pumpAndSettle();
 
-    expect(find.text('IPSOS · TIMESHEET'), findsOneWidget);
-    expect(find.text('You can log time for this week only'), findsOneWidget);
-    expect(find.text('Add activity'), findsOneWidget);
-    expect(find.text('Submit week'), findsOneWidget);
-    expect(find.text('PREVIOUS TIMESHEETS'), findsOneWidget);
+    // Verify Dashboard
+    expect(find.text('PROJECT CODE: NZHS'), findsOneWidget);
+    expect(find.text('ACTIVITY'), findsOneWidget);
+    expect(find.text('SUBMIT'), findsOneWidget);
   });
 }
